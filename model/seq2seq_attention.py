@@ -27,7 +27,7 @@ def decoder_model(decoder_input, hidden, encoder_outputs, vocab_size, embedding_
     # shape (batch_size, 1, embedding_dim) decoder 每次输入只有一个词, 因为它是从生成的词预测下一个词 一直重复
     output = Embedding(vocab_size, embedding_dim)(decoder_input)
     # shape (batch_size, encoder_units), (batch_size, encoder_seq_len, 1)
-    context_vector, attention_weights = BahdanauAttention(units, trainable=True)(hidden, encoder_outputs)
+    context_vector, attention_weights = BahdanauAttention(units, trainable=True)([hidden, encoder_outputs])
     # shape (batch_size, 1, embedding_dim + encoder_units)
     # 有两种实现方式
     # 1 将context_vector和输入进行拼接 送入net

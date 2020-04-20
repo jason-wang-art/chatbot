@@ -99,7 +99,6 @@ class PreProcess(object):
     def val_process(self, sentence):
         words = jieba.cut(sentence)
         words = '<eos> ' + ' '.join(words) + ' <sos>'
-        print(words)
         tensor = self.q_tokenizer.texts_to_sequences(words)
         tensor = pad_sequences(tensor, padding='post')
         return tensor.reshape((1, -1))
@@ -163,10 +162,10 @@ class PreProcess(object):
                 i = (i + 1) % self.length
             yield np.array(q_tensor), np.array(a_tensor)
 
-process = PreProcess('./data/qingyun.tsv')
-print(len(process.q_tensor))
-data = process.val_process('你猜猜看我是谁')
-print(data, data.shape)
+# process = PreProcess('./data/qingyun.tsv')
+# print(len(process.q_tensor))
+# data = process.val_process('你猜猜看我是谁')
+# print(data, data.shape)
 #
 # print(process.test(process.a_tokenizer, process.a_tensor[-1]))
 # print(process.a_tensor[-1])

@@ -21,7 +21,8 @@ class BahdanauAttention(Layer):
         base_config = super(BahdanauAttention, self).get_config()
         return dict(list(base_config.items()))
 
-    def call(self, query, values):
+    def call(self, inputs):
+        query, values = inputs[0], inputs[1]
         # hidden shape == (batch_size, decoder_units)
         # hidden_with_time_axis shape == (batch_size, 1, decoder_units)
         # we are doing this to perform addition to calculate the score
