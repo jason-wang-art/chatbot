@@ -82,7 +82,7 @@ class PreProcess(object):
         f.close()
 
     def _load_parse_file(self, file_path):
-        with open(file_path, 'r') as f:
+        with open(file_path, 'r', encoding='utf-8') as f:
             lines = f.readlines()
             data = [('<eos> ' + line.split('\t')[0] + ' <sos>', '<eos> ' + line.split('\t')[1].strip('\n') + ' <sos>')
                     for line in lines]
@@ -163,11 +163,10 @@ class PreProcess(object):
                 i = (i + 1) % self.length
             yield np.array(q_tensor), np.array(a_tensor)
 
-# process = PreProcess('./data/qingyun.tsv')
-# print(len(process.q_tensor))
-# print(process.q[-1])
-# data = process.val_process('你猜猜看我是谁')
-# print(data, data.shape)
+process = PreProcess('./data/qingyun.tsv')
+print(len(process.q_tensor))
+data = process.val_process('你猜猜看我是谁')
+print(data, data.shape)
 #
 # print(process.test(process.a_tokenizer, process.a_tensor[-1]))
 # print(process.a_tensor[-1])
