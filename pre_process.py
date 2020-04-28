@@ -9,7 +9,7 @@ import numpy as np
 
 
 class PreProcess(object):
-    def __init__(self, file_path, max_length=25, samples_num=10000, is_char=False, random_choose=False,
+    def __init__(self, file_path, max_length=25, samples_num=3, is_char=False, random_choose=False,
                  filter_max_lenght=False):
         """
 
@@ -66,7 +66,7 @@ class PreProcess(object):
         self.a_tensor = self.a_tensor[ids]
 
     def _parse_file(self, file_path, save_path):
-        with open(file_path, 'r') as f:
+        with open(file_path, 'r', encoding='utf-8') as f:
             lines = self._purify(f.readlines())
             data = [line.split('\t') for line in lines]
             if self.is_char:
@@ -109,7 +109,7 @@ class PreProcess(object):
     # 去掉一些停用词
     def filter_sentence(self, sentence):
         return sentence.replace('\n', '').replace(' ', '').replace('，', ',').replace('。', '.'). \
-            replace('；', '：', ':').replace('？', '?').replace('！', '!').replace('“', '"'). \
+            replace('；', '：').replace('？', '?').replace('！', '!').replace('“', '"'). \
             replace('”', '"').replace("‘", "'").replace("’", "'").replace('（', '(').replace('）', ')')
 
     def _load_data(self, q, a):
@@ -162,7 +162,7 @@ class PreProcess(object):
                 i = (i + 1) % self.length
             yield np.array(q_tensor), np.array(a_tensor)
 
-# process = PreProcess('./data/qingyun.tsv')
+# process = PreProcess('./data/train.txt')
 # print(len(process.q_tensor))
 # data = process.val_process('你猜猜看我是谁')
 # print(data, data.shape)
