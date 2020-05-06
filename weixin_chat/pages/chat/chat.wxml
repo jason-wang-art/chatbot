@@ -1,0 +1,54 @@
+<!--pages/chat/chat.wxml-->
+<view class="news" bindtap='outbtn'>
+   <view class="chat-notice" wx:if="{{userInfo}}">{{ userInfo.nickName }} 小AI一直在这</view>
+   <view class="historycon">
+   <scroll-view scroll-y="true" class="history" scroll-top="{{scrollTop}}">
+    
+       <block wx:for="{{newslist}}" wx:key>
+          <!-- 历史消息 -->
+           <!-- <view class="chat-news">
+              <view style="text-align: left;padding-left: 20rpx;">
+                  <image class='new_img' src="{{item.avatarUrl? item.avatarUrl:'images/avator.png'}}"></image>
+                  <text class="name">{{ item.nickName }}{{item.date}}</text>
+              </view>
+              <view class='you_left'>
+                  <block wx:if="{{item.type=='text'}}">      
+                    <view class='new_txt'>{{item.content}}</view>
+                  </block>
+                  <block wx:if="{{item.type=='image'}}">      
+                    <image class="selectImg" src="{{item.images}}"></image> 
+                  </block>
+              </view>
+          </view>   -->
+          <view>{{item.date}}</view>
+          <!--自己的消息  -->
+          <view class="chat-news" wx:if="{{item.nickName == userInfo.nickName}}">
+              <view style="text-align: right;padding-right: 20rpx;">
+                  <view class='new_txt'>{{item.content}}</view>
+                  <text class="name">{{ item.nickName }}</text>
+                  <image class='new_img' src="{{userInfo.avatarUrl}}"></image>
+              </view>
+          </view> 
+          <!-- 别人的消息  -->
+            <view class="chat-news" wx:else>
+              <view style="text-align: left;padding-left: 20rpx;">
+                  <image class='new_img' src="{{item.avatarUrl? item.avatarUrl:'images/avator.png'}}"></image>
+                  <text class="name">{{ item.nickName }}</text>
+                  <view class='new_txt'>{{item.content}}</view>
+              </view>
+          </view>  
+       </block>
+   </scroll-view>
+  </view>  
+</view>
+<view id="flag"></view> 
+<!-- 聊天输入 -->
+<view class="message">
+    <form bindreset="cleanInput" class="sendMessage">
+        <input type="text" placeholder="请输入聊天内容.." value="{{massage}}" bindinput='bindChange'></input>
+        <button type="primary" bindtap='send' formType="reset" size="small" button-hover="blue">发送</button>
+    </form>
+</view>
+
+
+
